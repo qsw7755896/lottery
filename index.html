@@ -96,12 +96,11 @@
 	
 	window.onload = function() {
 	
-		var request = new Request('http://48bd-2001-b400-e782-c59e-6c9b-cf76-afa5-6784.ngrok.io');
+		var request = new Request('https://testlottery123.herokuapp.com/');
 		fetch(request,{
 			method: 'GET',
 			headers: {
-				'Content-Type': 'application/json',
-				'Origin': 'http:localhost:3000/',
+				'Content-Type': 'application/json'
 			}
 		})
 		.then(function(response) {

@@ -5,27 +5,22 @@ const http = require("http");
 //const https = require("https")
 const app = express();
 const fs = require('fs');
-const port = process.env.PORT || 3000;
+const port = 3000;
 //const request = require("request");
 
 const list = [{ id: 1, name: "小明" }];
-// 設置請求路徑為 /products 請求方法為 get
-//app.get("/", function (req, res, next) {
-//  var obj = getPrizeFile();
-//  res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1')
-//  res.send({ success: true, obj }).end();
-//});
+
 //首頁
 app.get("/", function (req, res, next) {
 	var obj = getPrizeFile();
+	res.setHeader("Access-Control-Allow-Origin","*");
 	res.json({'arr':obj});
 });
 //首頁
 app.get('/index', function (req, res, next) {
 	
-	var obj = getPrizeFile();
-	res.json({'arr':obj});
-  //res.render('index');
+
+  res.render('index');
 });
 /**
  * create server
