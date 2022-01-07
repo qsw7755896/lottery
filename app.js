@@ -17,13 +17,8 @@ const list = [{ id: 1, name: "小明" }];
 //});
 //首頁
 app.get("/", function (req, res, next) {
-  return promise
-    .then((obj) => {
-      res.redirect("/index");
-    })
-    .catch((err) => {
-      res.redirect("/auth");
-    })
+	var obj = getPrizeFile();
+	res.json({'arr':obj});
 });
 //首頁
 app.get('/index', function (req, res, next) {
