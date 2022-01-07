@@ -35,7 +35,7 @@ app.get('/index', function (req, res, next) {
 /**
  * create server
  */
-server = http.createServer(app)
+var server = http.createServer(app)
 server.listen(port, () => {
   console.log(`server listen to http://localhost:${port}`)
 })
