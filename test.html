@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+<style>
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  background-color: #008CBA;
+}
+.result #show_result {
+	color: #008CBA;
+	font-size: 25px;
+}
+</style>
+</head>
+
+<body>
+	<div class="lottery">
+		<input class="button" type="button" value="點我抽獎" onclick="getLottery()">
+	</div>
+	<div id="result" class="result" hidden="true">
+		<h1>恭喜中獎!!你抽中:</h1>
+		<div id="show_result"></div>
+	</div>
+</body>
+
+<!-- script -->
+<script type="text/javascript">
+	var prizeList = [{"id":1,"prize":"銘謝惠顧"},{"id":2,"prize":"薯條100元"},{"id":3,"prize":"紅包500元"}]
+	var resultList = [];
+	
+	function getLottery(){
+		//prizeList.forEach(function(element,index){
+		//  console.log(element);
+		//});
+		document.getElementById("show_result").innerText  = "";
+		
+		var luckyNum = getRandomInt(prizeList.length);
+		console.log(prizeList[luckyNum]);
+		document.getElementById("result").hidden = false;
+		document.getElementById("show_result").append(prizeList[luckyNum].prize);
+	}
+
+	function resetPrizeList(InsPrize){
+		InsPrize = [
+			{
+				"id":1,
+				"prize":"銘謝惠顧"
+			},
+			{
+				"id":2,
+				"prize":"薯條100元"
+			},
+			{
+				"id":3,
+				"prize":"紅包500元"
+			},
+			{
+				"id":4,
+				"prize":"俊權請我吃飯!"
+			},
+			{
+				"id":5,
+				"prize":"士騰請我吃飯!"
+			}
+		];
+		
+		prizeList = []; //清空抽獎列
+		InsPrize.forEach(function(element,index){
+		  this[index] = element;
+		},prizeList);
+		
+	}
+	
+	function getRandomInt(max) {
+		return Math.floor(Math.random() * max);
+	}
+	
+	function getPrizeList(){
+		var file = "prizeList.txt";
+		var reader = new FileReader();
+		
+		reader.onload = function(progressEvent){
+			console.log(this.result);
+		};
+		reader.readAsText(file);
+	}
+	
+	window.onload = function() {
+	
+		var request = new Request('http://48bd-2001-b400-e782-c59e-6c9b-cf76-afa5-6784.ngrok.io');
+		fetch(request,{
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'Origin': 'http:localhost:3000/',
+			}
+		})
+		.then(function(response) {
+		  console.log(response); 
+		}).catch(function(error) {  
+		  console.log('Request failed', error)  
+		});
+		
+	}
+</script>
+</html>
