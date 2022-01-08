@@ -5,7 +5,7 @@ const http = require("http");
 //const https = require("https")
 const app = express();
 const fs = require('fs');
-const port = 3000;
+const port = process.env.PORT || 3000;
 //const request = require("request");
 
 const list = [{ id: 1, name: "小明" }];
