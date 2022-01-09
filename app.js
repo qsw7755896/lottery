@@ -27,7 +27,7 @@ app.get("/", function (req, res, next) {
   res.json({ 'arr': obj });
 });
 
-app.post("/write", function (req, res) {
+app.get("/write", function (req, res) {
   console.log(JSON.parse(req.body))
 
   res.json({ 'write': req.body[0].prize });
