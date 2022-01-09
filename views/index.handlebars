@@ -51,7 +51,8 @@
 
 	function resetPrizeList(InsPrize){
 		prizeList = []; //清空抽獎列
-		for(var idx = 0 ; idx<InsPrize.length;idx++){
+		console.log(InsPrize)
+		for(var idx = 0 ; idx < InsPrize.length ; idx++){
 			prizeList.push({
 				"id": idx,
 				"prize": InsPrize[idx]
