@@ -28,9 +28,9 @@ app.get("/", function (req, res, next) {
 });
 
 app.post("/write", function (req, res) {
-  console.log(req.body.prize)
+  console.log(req.body[0].prize)
 
-  res.json({ 'write': req.body.prize });
+  res.json({ 'write': req.body[0].prize });
 });
 /**
  * 抽獎頁面
