@@ -90,9 +90,9 @@
 			mode: 'no-cors'
 		})
 		.then(response => {
-			response.text().then(text => {
+			response.json().then(json => {
 				//console.log(text);  // 成功拿到 response.body 的 json 資料
-				resetPrizeList(text)
+				resetPrizeList(json.arr)
 			})
 		})
 		.catch(function(error) {  
