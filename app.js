@@ -28,7 +28,7 @@ app.get("/", function (req, res, next) {
 });
 
 app.post("/write", function (req, res) {
-  console.log(JSON.parse(req))
+  console.log(JSON.parse(req.body))
 
   res.json({ 'write': req.body[0].prize });
 });
