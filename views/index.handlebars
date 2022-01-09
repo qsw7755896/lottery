@@ -92,7 +92,7 @@
 		.then(response => {
 			response.text().then(text => {
 				//console.log(text);  // 成功拿到 response.body 的 json 資料
-				resetPrizeList(text.arr)
+				resetPrizeList(text)
 			})
 		})
 		.catch(function(error) {  
