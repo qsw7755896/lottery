@@ -50,33 +50,17 @@
 	}
 
 	function resetPrizeList(InsPrize){
-		InsPrize = [
-			{
-				"id":1,
-				"prize":"銘謝惠顧"
-			},
-			{
-				"id":2,
-				"prize":"薯條100元"
-			},
-			{
-				"id":3,
-				"prize":"紅包500元"
-			},
-			{
-				"id":4,
-				"prize":"俊權請我吃飯!"
-			},
-			{
-				"id":5,
-				"prize":"士騰請我吃飯!"
-			}
-		];
-		
 		prizeList = []; //清空抽獎列
-		InsPrize.forEach(function(element,index){
-		  this[index] = element;
-		},prizeList);
+		for(var idx = 0 ; i<InsPrize.length;i++){
+			prizeList.push({
+				"id": idx,
+				"prize": InsPrize[idx]
+			})
+			console.log(InsPrize[idx])
+		}
+		//InsPrize.forEach(function(element,index){
+		//  this[index] = element;
+		//},prizeList);
 		
 	}
 	
@@ -104,7 +88,8 @@
 			}
 		})
 		.then(function(response) {
-		  console.log(response.json()); 
+		  console.log(response.json().arr); 
+		  
 		}).catch(function(error) {  
 		  console.log('Request failed', error)  
 		});
