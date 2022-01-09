@@ -81,18 +81,17 @@
 	window.onload = function() {
 	
 		var request = new Request('https://testlottery123.herokuapp.com/');
-		var response = fetch(request,{
+		fetch(request,{
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		})
-		.then(function(response) {
-			return response.json()		  
-		}).catch(function(error) {  
+		.then(response => resetPrizeList(response.json())})
+		.catch(function(error) {  
 		  console.log('Request failed', error)  
 		});
-		console.log(response); 
+		
 	}
 </script>
 </html>
