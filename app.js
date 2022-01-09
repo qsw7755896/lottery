@@ -16,7 +16,7 @@ const list = [{ id: 1, name: "小明" }];
 //app.engine('handlebars', exphbs('defaultLayout: main'))
 app.engine('handlebars', require('exphbs'));
 app.set('view engine', 'handlebars')
-
+app.use(express.json()) 
 
 /**
  * 首頁
