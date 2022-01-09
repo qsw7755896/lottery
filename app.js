@@ -16,7 +16,7 @@ const list = [{ id: 1, name: "小明" }];
 //app.engine('handlebars', exphbs('defaultLayout: main'))
 app.engine('handlebars', require('exphbs'));
 app.set('view engine', 'handlebars')
-app.use(express.json()) 
+app.use(express.json())
 
 /**
  * 首頁
@@ -28,8 +28,19 @@ app.get("/", function (req, res, next) {
 });
 
 app.post("/write", function (req, res, next) {
-  console.log(req.body)
-  res.json(req.body)
+  var data = "";
+
+  for (var i = 0; i < req.body.length; i++) {
+    data += req.body[i].prize + "|" + req.body[i].count;
+  }
+  
+  fs.writeFile('./prizeList.txt', data, function (err) {
+    if (err)
+      console.log(err);
+    else
+      console.log('Write operation complete.');
+  });
+  res.json(data)
 });
 /**
  * 抽獎頁面
