@@ -28,9 +28,9 @@ app.get("/", function (req, res, next) {
 });
 
 app.post("/write", function (req, res) {
-  var obj = getPrizeFile();
+  console.log(req.body)
 
-  res.json({ 'arr': obj });
+  res.json({ 'write': req.body });
 });
 /**
  * 抽獎頁面
