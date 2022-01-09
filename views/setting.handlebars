@@ -49,7 +49,8 @@
 		</h3>
 		<div class="card-body">
 			<div id="editarea">
-				<button type="button" class="btn btn-danger btn-rounded btn-sm my-0">
+				<button type="button" class="btn btn-danger btn-rounded btn-sm my-0" data-bs-toggle="modal"
+					data-bs-target="#exampleModal">
 					新增獎項
 				</button>
 			</div>
@@ -72,7 +73,31 @@
 			</div>
 		</div>
 	</div>
-	<!-- Editable table -->
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<form class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="mb-3">
+						<label for="exampleFormControlInput1" class="form-label">獎項</label>
+						<input type="text" class="form-control" id="prizeIn">
+					</div>
+					<div class="mb-3">
+						<label for="exampleFormControlTextarea1" class="form-label">數量</label>
+						<input type="number" class="form-control" id="countIn">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="sumbit" class="btn btn-primary">Save changes</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </body>
 
 <!-- script -->
