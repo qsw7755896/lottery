@@ -157,7 +157,7 @@
 		target.parentElement.parentElement.className = " ";
 		target.parentElement.children[0].hidden = true;
 		target.parentElement.children[1].hidden = false;
-		
+
 		//回寫file
 		var url = 'https://testlottery123.herokuapp.com/write';
 		var data = prizeList;
@@ -173,8 +173,7 @@
 			.then(response => console.log('Success:', response));
 	}
 	window.onload = function () {
-		resetPrizeList()
-		/**var request = new Request('https://testlottery123.herokuapp.com/');
+		var request = new Request('https://testlottery123.herokuapp.com/');
 		var repspnse = fetch(request, {
 			method: 'GET',
 			headers: {
@@ -190,7 +189,7 @@
 			})
 			.catch(function (error) {
 				console.log('Request failed', error)
-			});-*/
+			});
 
 
 	}
