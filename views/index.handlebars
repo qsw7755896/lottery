@@ -81,19 +81,18 @@
 	window.onload = function() {
 	
 		var request = new Request('https://testlottery123.herokuapp.com/');
-		fetch(request,{
+		var response = fetch(request,{
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		})
 		.then(function(response) {
-		  console.log(response.json().arr); 
-		  
+			return response.json()		  
 		}).catch(function(error) {  
 		  console.log('Request failed', error)  
 		});
-		
+		console.log(response); 
 	}
 </script>
 </html>
