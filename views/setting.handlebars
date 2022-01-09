@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
+	<style>
+		.button {
+			border: none;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+			background-color: #008CBA;
+		}
+
+		.result #show_result {
+			color: #008CBA;
+			font-size: 25px;
+		}
+
+		tr.editnow {
+			background-color: #00ba98;
+		}
+
+
+		#editarea {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-bottom: 15px;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Editable table -->
+	<div class="card">
+		<h3 class="card-header text-center font-weight-bold text-uppercase py-4">
+			抽獎獎項編輯列表
+		</h3>
+		<div class="card-body">
+			<div id="editarea">
+				<button type="button" class="btn btn-danger btn-rounded btn-sm my-0">
+					新增獎項
+				</button>
+			</div>
+			<div id="table" class="table-editable">
+				<span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
+							class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+				<table class="table table-bordered table-responsive-md table-striped text-center">
+					<thead>
+						<tr>
+							<th class="text-center" hidden>項次</th>
+							<th class="text-center">獎項內容</th>
+							<th class="text-center">數量</th>
+							<th class="text-center">Action</th>
+						</tr>
+					</thead>
+					<tbody id="table-body">
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- Editable table -->
+</body>
+
+<!-- script -->
+<script type="text/javascript">
+	var prizeList = [];
+	function addAddressLine(data) {
+		var e = document.createElement('tr');
+		e.innerHTML =
+			" <td id=\"p-id\" class=\"pt-3-half\" hidden>" + data.id + "</td>" +
+			" <td id=\"p-prize\" class=\"pt-3-half\" >" + data.prize + "</td>" +
+			" <td id=\"p-count\" class=\"pt-3-half\" >" + data.count + "</td>" +
+			" <td>" +
+			"<span class=\"table-save\" style=\"margin: 0 3px;\" onclick=\"save(this)\" hidden>" +
+			"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-check-circle\" viewBox=\"0 0 16 16\"><path d=\"M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z\"/><path d=\"M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z\"/></svg>" +
+			"</span>" +
+			"<span class=\"table-edit\" style=\"margin: 0 3px;\" onclick=\"edit(this)\" >" +
+			"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-pencil-square\" viewBox=\"0 0 16 16\"><path d=\"M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z\"/><path fill-rule=\"evenodd\" d=\"M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z\"></svg>" +
+			"</span>" +
+			"<span class=\"table-remove\" style=\"margin: 0 3px;\" onclick=\"remove(this)\">" +
+			"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-trash\" viewBox=\"0 0 16 16\"><path d=\"M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z\" /><path fill-rule=\"evenodd\" d=\"M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z\" /></svg>" +
+			"</span>" +
+			"</td>";
+		var addressContainer = document.getElementById("table-body");
+		addressContainer.appendChild(e);
+	};
+
+	function resetPrizeList(InsPrize) {
+		prizeList = []; //清空抽獎列
+		InsPrize = ["獎品1|3", "獎品2|1", "獎品3|4", "獎品4|2", "獎品5|3"];
+		for (var idx = 0; idx < InsPrize.length; idx++) {
+			prizeList.push({
+				"id": idx,
+				"prize": InsPrize[idx].substring(0, InsPrize[idx].indexOf("|")),
+				"count": InsPrize[idx].substring(InsPrize[idx].indexOf("|") + 1, InsPrize[idx].length)
+			})
+			addAddressLine({
+				"id": idx + 1,
+				"prize": InsPrize[idx].substring(0, InsPrize[idx].indexOf("|")),
+				"count": InsPrize[idx].substring(InsPrize[idx].indexOf("|") + 1, InsPrize[idx].length)
+			})
+		}
+
+	}
+
+	function remove(target) {
+		var rowIdx = target.parentElement.parentElement.rowIndex;
+		console.log(rowIdx);
+		prizeList.splice(rowIdx - 1, 1);
+		target.parentElement.parentElement.remove();
+		console.log(prizeList);
+
+		//回寫file
+		var url = 'https://testlottery123.herokuapp.com/write';
+		var data = prizeList;
+
+		fetch(url, {
+			method: 'POST', // or 'PUT'
+			body: JSON.stringify(data), // data can be `string` or {object}!
+			headers: new Headers({
+				'Content-Type': 'application/json'
+			})
+		}).then(res => res.json())
+			.catch(error => console.error('Error:', error))
+			.then(response => console.log('Success:', response));
+	}
+
+	function edit(target) {
+		target.parentElement.parentElement.children[1].setAttribute("contenteditable", "true")
+		target.parentElement.parentElement.children[2].setAttribute("contenteditable", "true")
+		target.parentElement.parentElement.className += " " + "editnow";
+		target.parentElement.children[0].hidden = false;
+		target.parentElement.children[1].hidden = true;
+	}
+
+	function save(target) {
+		var rowIdx = target.parentElement.parentElement.rowIndex;
+		prizeList[rowIdx - 1].prize = target.parentElement.parentElement.children[1].innerHTML
+		prizeList[rowIdx - 1].count = target.parentElement.parentElement.children[2].innerHTML
+		console.log(prizeList)
+		target.parentElement.parentElement.children[1].removeAttribute("contenteditable")
+		target.parentElement.parentElement.children[2].removeAttribute("contenteditable")
+		target.parentElement.parentElement.className = " ";
+		target.parentElement.children[0].hidden = true;
+		target.parentElement.children[1].hidden = false;
+		
+		//回寫file
+		var url = 'https://testlottery123.herokuapp.com/write';
+		var data = prizeList;
+
+		fetch(url, {
+			method: 'POST', // or 'PUT'
+			body: JSON.stringify(data), // data can be `string` or {object}!
+			headers: new Headers({
+				'Content-Type': 'application/json'
+			})
+		}).then(res => res.json())
+			.catch(error => console.error('Error:', error))
+			.then(response => console.log('Success:', response));
+	}
+	window.onload = function () {
+		resetPrizeList()
+		/**var request = new Request('https://testlottery123.herokuapp.com/');
+		var repspnse = fetch(request, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			mode: 'no-cors'
+		})
+			.then(response => {
+				response.json().then(json => {
+					//console.log(text);  // 成功拿到 response.body 的 json 資料
+					resetPrizeList(json.arr)
+				})
+			})
+			.catch(function (error) {
+				console.log('Request failed', error)
+			});-*/
+
+
+	}
+</script>
+
+</html>

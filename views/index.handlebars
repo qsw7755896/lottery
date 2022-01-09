@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
-<style>
-.button {
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  background-color: #008CBA;
-}
-.result #show_result {
-	color: #008CBA;
-	font-size: 25px;
-}
-</style>
+	<style>
+		.button {
+			border: none;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+			background-color: #008CBA;
+		}
+
+		.result #show_result {
+			color: #008CBA;
+			font-size: 25px;
+		}
+	</style>
 </head>
 
 <body>
@@ -34,72 +36,66 @@
 
 <!-- script -->
 <script type="text/javascript">
-	var prizeList = [{"id":1,"prize":"銘謝惠顧"},{"id":2,"prize":"薯條100元"},{"id":3,"prize":"紅包500元"}]
-	var resultList = [];
-	
-	function getLottery(){
-		//prizeList.forEach(function(element,index){
-		//  console.log(element);
-		//});
-		document.getElementById("show_result").innerText  = "";
-		
-		var luckyNum = getRandomInt(prizeList.length);
-		console.log(prizeList[luckyNum]);
+	var prizeList = [{ "id": 1, "prize": "銘謝惠顧", "count": 2 }, { "id": 2, "prize": "薯條100元", "count": 2 }, { "id": 3, "prize": "紅包500元", "count": 2 }]
+	var lotterylist = [];
+
+	function getLottery() {
+		document.getElementById("show_result").innerText = "";
+
+		var luckyNum = getRandomInt(lotterylist.length);
+		//console.log(lotterylist[luckyNum]);
 		document.getElementById("result").hidden = false;
-		document.getElementById("show_result").append(prizeList[luckyNum].prize);
+		document.getElementById("show_result").append(lotterylist[luckyNum].prize);
 	}
 
-	function resetPrizeList(InsPrize){
+	function resetPrizeList(InsPrize) {
 		prizeList = []; //清空抽獎列
-		console.log(InsPrize)
-		for(var idx = 0 ; idx < InsPrize.length ; idx++){
+		lotterylist = []; //清空抽獎列
+		var count = 0;
+		for (var idx = 0; idx < InsPrize.length; idx++) {
 			prizeList.push({
 				"id": idx,
-				"prize": InsPrize[idx]
-			})
-			console.log(InsPrize[idx])
+				"prize": InsPrize[idx].substring(0, InsPrize[idx].indexOf("|")),
+				"count": InsPrize[idx].substring(InsPrize[idx].indexOf("|") + 1, InsPrize[idx].length)
+			});
+			for (var j = 0; j < InsPrize[idx].substring(InsPrize[idx].indexOf("|") + 1, InsPrize[idx].length); j++) {
+				lotterylist.push({
+					"id": count,
+					"prize": InsPrize[idx].substring(0, InsPrize[idx].indexOf("|"))
+				});
+				count++;
+			}
 		}
-		//InsPrize.forEach(function(element,index){
-		//  this[index] = element;
-		//},prizeList);
-		
+		//console.log(prizeList)
+		//console.log(lotterylist)
 	}
-	
+
 	function getRandomInt(max) {
 		return Math.floor(Math.random() * max);
 	}
-	
-	function getPrizeList(){
-		var file = "prizeList.txt";
-		var reader = new FileReader();
-		
-		reader.onload = function(progressEvent){
-			console.log(this.result);
-		};
-		reader.readAsText(file);
-	}
-	
-	window.onload = function() {
-	
+
+
+	window.onload = function () {
 		var request = new Request('https://testlottery123.herokuapp.com/');
-		var repspnse = fetch(request,{
+		var repspnse = fetch(request, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			mode: 'no-cors'
 		})
-		.then(response => {
-			response.json().then(json => {
-				//console.log(text);  // 成功拿到 response.body 的 json 資料
-				resetPrizeList(json.arr)
+			.then(response => {
+				response.json().then(json => {
+					//console.log(text);  // 成功拿到 response.body 的 json 資料
+					resetPrizeList(json.arr)
+				})
 			})
-		})
-		.catch(function(error) {  
-		  console.log('Request failed', error)  
-		});
-		
-		
+			.catch(function (error) {
+				console.log('Request failed', error)
+			});
+
+
 	}
 </script>
+
 </html>
