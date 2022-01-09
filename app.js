@@ -31,14 +31,14 @@ app.post("/write", function (req, res, next) {
   var data = "";
 
   for (var i = 0; i < req.body.length; i++) {
-    if (data = "") {
+    if (data == "") {
       data = req.body[i].prize + "|" + req.body[i].count;
     } else {
       data += "," + req.body[i].prize + "|" + req.body[i].count;
     }
 
   }
-
+  console.log(data);
   fs.writeFile('./prizeList.txt', data, function (err) {
     if (err)
       console.log(err);
