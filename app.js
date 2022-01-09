@@ -27,10 +27,9 @@ app.get("/", function (req, res, next) {
   res.json({ 'arr': obj });
 });
 
-app.get("/write", function (req, res) {
-  console.log(JSON.parse(req.body))
-
-  res.json({ 'write': req.body[0].prize });
+app.post("/write", function (req, res, next) {
+  console.log(req.body)
+  res.json(req.body)
 });
 /**
  * 抽獎頁面
