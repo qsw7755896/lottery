@@ -51,7 +51,7 @@
 
 	function resetPrizeList(InsPrize){
 		prizeList = []; //清空抽獎列
-		for(var idx = 0 ; i<InsPrize.length;i++){
+		for(var idx = 0 ; idx<InsPrize.length;idx++){
 			prizeList.push({
 				"id": idx,
 				"prize": InsPrize[idx]
@@ -90,7 +90,7 @@
 		})
 		.then(response => {
 			response.text().then(text => {
-				console.log(text);  // 成功拿到 response.body 的 json 資料
+				//console.log(text);  // 成功拿到 response.body 的 json 資料
 				resetPrizeList(text.arr)
 			})
 		})
