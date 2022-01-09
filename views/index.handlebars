@@ -51,7 +51,9 @@
 
 	function resetPrizeList(InsPrize){
 		prizeList = []; //清空抽獎列
-		console.log(InsPrize)
+		InsPrize.then(result => {
+			console.log(result)
+		});
 		for(var idx = 0 ; i<InsPrize.length;i++){
 			prizeList.push({
 				"id": idx,
@@ -86,22 +88,18 @@
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'
-			}
+			},
+			mode: 'no-cors'
 		})
-		.then(function(response){ 
-		    var promises = response.map(function(id) {
-				return arr.getById(id);
-			});
-			return Promise.all(promises);
+		.then(response => {
+			response.text().then(text => {
+				console.log(text);  // 成功拿到 response.body 的 json 資料
+			})
 		})
 		.catch(function(error) {  
 		  console.log('Request failed', error)  
 		});
 		
-		
-		repspnse.then(function(stories) {
-			console.log(stories);
-		});
 		
 	}
 </script>
