@@ -217,7 +217,11 @@
 			headers: new Headers({
 				'Content-Type': 'application/json'
 			})
-		}).then(res => getList())
+		}).then(res => {
+			getList();
+			document.getElementById("prizeIn").value = "";
+			document.getElementById("countIn").value = "";
+		})
 			.catch(error => console.error('Error:', error))
 			.then(response => console.log('Success:', response));
 	}
