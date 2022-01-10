@@ -3,6 +3,11 @@
 
 <head>
 	<meta charset="utf-8">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
 	<style>
 		.button {
 			border: none;
@@ -11,27 +16,55 @@
 			text-align: center;
 			text-decoration: none;
 			display: inline-block;
-			font-size: 16px;
+			font-size: 80px;
 			margin: 4px 2px;
 			cursor: pointer;
 			background-color: #008CBA;
+			border: 2px #ccc solid;
+			border-radius: 30px;
+		}
+
+		.result {
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 
 		.result #show_result {
 			color: #008CBA;
 			font-size: 25px;
 		}
+
+		.part1 {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.lottery {
+			width: 85%;
+			height: 500px;
+			margin: 20px;
+		}
 	</style>
 </head>
 
 <body>
-	<div class="lottery">
-		<input class="button" type="button" value="點我抽獎" onclick="getLottery()">
+	<div class="part1 container">
+		<div class="lottery row">
+			<input class="button" type="button" value="點我抽獎" onclick="getLottery()">
+		</div>
 	</div>
-	<div id="result" class="result" hidden="true">
-		<h1>恭喜中獎!!你抽中:</h1>
-		<div id="show_result"></div>
+
+	<div id="result" class="result container" hidden="true">
+		<div class="row">
+			<h1>恭喜中獎!!你抽中:</h1>
+			<div id="show_result"></div>
+		</div>
+
 	</div>
+
+
 </body>
 
 <!-- script -->
