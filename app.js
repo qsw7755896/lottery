@@ -51,15 +51,15 @@ app.post("/append", function (req, res, next) {
   var data = "";
 
  
-  console.log(req.body.prizeIn);
+  console.log(req.body);
   // fs.writeFile('./prizeList.txt', data, function (err) {
   //   if (err)
   //     console.log(err);
   //   else
   //     console.log('Write operation complete.');
   // });
-  res.json(req.body)
-  //res.render('setting');
+  //res.json(req.body)
+  res.render('setting');
 });
 /**
  * 抽獎頁面
