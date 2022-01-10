@@ -93,7 +93,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="submit" class="btn btn-primary" onclick="appenddata(this)">Save changes</button>
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="appenddata(this)">Save changes</button>
 				</div>
 			</div>
 		</div>
@@ -215,9 +215,7 @@
 			headers: new Headers({
 				'Content-Type': 'application/json'
 			})
-		}).then(res => {
-			document.getElementById("exampleModal").modal('hide');
-		})
+		}).then(res => console.log(res))
 			.catch(error => console.error('Error:', error))
 			.then(response => console.log('Success:', response));
 	}
