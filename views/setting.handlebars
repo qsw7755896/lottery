@@ -93,7 +93,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" onclick="appendList(this)">Save changes</button>
+					<button type="button" class="btn btn-primary" onclick="appenddata(this)">Save changes</button>
 				</div>
 			</div>
 		</div>
@@ -198,7 +198,7 @@
 			.then(response => console.log('Success:', response));
 	}
 	
-	function appendList(target) {
+	function appenddata(target) {
 		
 		var prizeIn = document.getElementById("prizeIn").value;
 		var countIn = document.getElementById("countIn").value;
@@ -207,7 +207,7 @@
 		//回寫file
 		var url = 'https://testlottery123.herokuapp.com/append';
 		var data = {
-			"insert": prizeIn + "|" + countIn;
+			"insert": prizeIn + "|" + countIn
 		}
 		fetch(url, {
 			method: 'POST', // or 'PUT'
@@ -219,6 +219,7 @@
 			.catch(error => console.error('Error:', error))
 			.then(response => console.log('Success:', response));
 	}
+
 	window.onload = function () {
 		var request = new Request('https://testlottery123.herokuapp.com/');
 		var repspnse = fetch(request, {
