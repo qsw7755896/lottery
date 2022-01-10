@@ -206,11 +206,12 @@
 
 		//回寫file
 		var url = 'https://testlottery123.herokuapp.com/append';
-		var data = prizeIn + "|" + countIn;
-
+		var data = {
+			"insert": prizeIn + "|" + countIn;
+		}
 		fetch(url, {
 			method: 'POST', // or 'PUT'
-			body: data, // data can be `string` or {object}!
+			body: JSON.stringify(data), // data can be `string` or {object}!
 			headers: new Headers({
 				'Content-Type': 'application/json'
 			})
