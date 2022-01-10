@@ -48,17 +48,12 @@ app.post("/write", function (req, res, next) {
   res.json(data)
 });
 app.post("/append", function (req, res, next) {
-  var data = "";
-
- 
-  console.log(req.body.insert);
-  // fs.writeFile('./prizeList.txt', data, function (err) {
-  //   if (err)
-  //     console.log(err);
-  //   else
-  //     console.log('Write operation complete.');
-  // });
-  //res.json(req.body)
+  fs.appendFile('./prizeList.txt', req.body.insert, function (err) {
+    if (err) 
+      console.log(err);
+    else
+      console.log('Saved!');
+  });
   res.render('setting');
 });
 /**
