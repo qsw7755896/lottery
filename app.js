@@ -38,7 +38,7 @@ app.post("/write", function (req, res, next) {
     }
 
   }
-  console.log(data);
+
   fs.writeFile('./prizeList.txt', data, function (err) {
     if (err)
       console.log(err);
@@ -47,9 +47,11 @@ app.post("/write", function (req, res, next) {
   });
   res.json(data)
 });
+
 app.post("/append", function (req, res, next) {
+  var data = "," + req.body.insert;
   fs.appendFile('./prizeList.txt', req.body.insert, function (err) {
-    if (err) 
+    if (err)
       console.log(err);
     else
       console.log('Saved!');

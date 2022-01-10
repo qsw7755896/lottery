@@ -215,7 +215,9 @@
 			headers: new Headers({
 				'Content-Type': 'application/json'
 			})
-		}).then(res => console.log(res))
+		}).then(res => {
+			document.getElementById("exampleModal").modal('toggle');
+		})
 			.catch(error => console.error('Error:', error))
 			.then(response => console.log('Success:', response));
 	}
