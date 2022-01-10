@@ -50,7 +50,7 @@ app.post("/write", function (req, res, next) {
 
 app.post("/append", function (req, res, next) {
   var data = "," + req.body.insert;
-  fs.appendFile('./prizeList.txt', req.body.insert, function (err) {
+  fs.appendFile('./prizeList.txt', data, function (err) {
     if (err)
       console.log(err);
     else

@@ -216,7 +216,7 @@
 				'Content-Type': 'application/json'
 			})
 		}).then(res => {
-			document.getElementById("exampleModal").modal('toggle');
+			document.getElementById("exampleModal").modal('hide');
 		})
 			.catch(error => console.error('Error:', error))
 			.then(response => console.log('Success:', response));
