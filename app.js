@@ -51,7 +51,7 @@ app.post("/append", function (req, res, next) {
   var data = "";
 
  
-  console.log(req.body);
+  console.log(req.body.prizeIn);
   // fs.writeFile('./prizeList.txt', data, function (err) {
   //   if (err)
   //     console.log(err);
