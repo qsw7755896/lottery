@@ -215,12 +215,12 @@
 			headers: new Headers({
 				'Content-Type': 'application/json'
 			})
-		}).then(res => console.log(res))
+		}).then(res => getList())
 			.catch(error => console.error('Error:', error))
 			.then(response => console.log('Success:', response));
 	}
 
-	window.onload = function () {
+	function getList(){
 		var request = new Request('https://testlottery123.herokuapp.com/');
 		var repspnse = fetch(request, {
 			method: 'GET',
@@ -238,8 +238,10 @@
 			.catch(function (error) {
 				console.log('Request failed', error)
 			});
+	}
 
-
+	window.onload = function () {
+		getList();
 	}
 </script>
 
