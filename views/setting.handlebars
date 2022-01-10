@@ -93,7 +93,8 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="appenddata(this)">Save changes</button>
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+						onclick="appenddata(this)">Save changes</button>
 				</div>
 			</div>
 		</div>
@@ -126,6 +127,7 @@
 
 	function resetPrizeList(InsPrize) {
 		prizeList = []; //清空抽獎列
+		document.getElementById("table-body").innerHTML = "";
 		//InsPrize = ["獎品1|3", "獎品2|1", "獎品3|4", "獎品4|2", "獎品5|3"];
 		for (var idx = 0; idx < InsPrize.length; idx++) {
 			prizeList.push({
@@ -197,9 +199,9 @@
 			.catch(error => console.error('Error:', error))
 			.then(response => console.log('Success:', response));
 	}
-	
+
 	function appenddata(target) {
-		
+
 		var prizeIn = document.getElementById("prizeIn").value;
 		var countIn = document.getElementById("countIn").value;
 		console.log(prizeIn + "|" + countIn);
@@ -220,7 +222,7 @@
 			.then(response => console.log('Success:', response));
 	}
 
-	function getList(){
+	function getList() {
 		var request = new Request('https://testlottery123.herokuapp.com/');
 		var repspnse = fetch(request, {
 			method: 'GET',
