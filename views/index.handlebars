@@ -60,7 +60,6 @@
 
 	<div id="result" class="result container" hidden="true">
 		<div class="row">
-			<div>恭喜中獎!!你抽中: </div>
 			<div id="show_result"></div>
 		</div>
 
@@ -80,7 +79,7 @@
 		var luckyNum = getRandomInt(lotterylist.length);
 		//console.log(lotterylist[luckyNum]);
 		document.getElementById("result").hidden = false;
-		document.getElementById("show_result").append(lotterylist[luckyNum].prize);
+		document.getElementById("show_result").append("抽中: " + lotterylist[luckyNum].prize);
 	}
 
 	function resetPrizeList(InsPrize) {
