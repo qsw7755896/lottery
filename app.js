@@ -58,8 +58,8 @@ app.post("/append", function (req, res, next) {
   //   else
   //     console.log('Write operation complete.');
   // });
-  // res.json(data)
-  res.render('setting');
+  res.json(req.body)
+  //res.render('setting');
 });
 /**
  * 抽獎頁面
