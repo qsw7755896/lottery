@@ -59,7 +59,7 @@ app.post("/append", function (req, res, next) {
   //     console.log('Write operation complete.');
   // });
   // res.json(data)
- // res.render('setting');
+  res.render('setting');
 });
 /**
  * 抽獎頁面
