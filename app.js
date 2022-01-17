@@ -8,7 +8,7 @@ const fs = require('fs');
 const port = process.env.PORT || 3000;
 //const request = require("request");
 
-const fileurl = "";
+const fileurl = "./prizeList1.txt";
 
 /**
  * 設定 template engine
@@ -87,7 +87,6 @@ app.get('/index', function (req, res, next) {
  */
 app.get('/setting', function (req, res, next) {
   res.render('setting');
-
 });
 /**
  * create server
