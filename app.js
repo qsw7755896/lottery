@@ -89,6 +89,23 @@ app.get('/index', function (req, res, next) {
  * 設置獎品頁面
  */
 app.get('/setting', function (req, res, next) {
+  switch (req.query.id) {
+    case '1':
+      fileurl = "./prizeList1.txt";
+      break;
+    case '2':
+      fileurl = "./prizeList2.txt";
+      break;
+    case '3':
+      fileurl = "./prizeList3.txt";
+      break;
+    case '4':
+      fileurl = "./prizeList4.txt";
+      break;
+    default:
+      fileurl = "./prizeList1.txt";
+  }
+  console.log("fileurl",fileurl);
   res.render('setting');
 });
 /**
