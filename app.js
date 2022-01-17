@@ -2,11 +2,12 @@
 const express = require('express');
 const exphbs = require('express-handlebars')
 const http = require("http");
-//const https = require("https")
 const app = express();
 const fs = require('fs');
 const port = process.env.PORT || 3000;
-//const request = require("request");
+const bodyParser = require('body-parser');
+const url = require('url');
+const querystring = require('querystring');
 
 const fileurl = "./prizeList1.txt";
 
@@ -17,7 +18,8 @@ const fileurl = "./prizeList1.txt";
 app.engine('handlebars', require('exphbs'));
 app.set('view engine', 'handlebars')
 app.use(express.json())
-
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 /**
  * 首頁
  */
