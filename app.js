@@ -63,7 +63,7 @@ app.post("/append", function (req, res, next) {
 /**
  * 抽獎頁面
  */
-app.get('/index/:id', function (req, res, next) {
+app.get('/index', function (req, res, next) {
 
   switch (req.query.id) {
     case '1':
@@ -81,6 +81,7 @@ app.get('/index/:id', function (req, res, next) {
     default:
       fileurl = "./prizeList1.txt";
   }
+  console.log("fileurl",fileurl);
   res.render('index');
 
 });
