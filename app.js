@@ -63,9 +63,9 @@ app.post("/append", function (req, res, next) {
 /**
  * 抽獎頁面
  */
-app.get('/index', function (req, res, next) {
+app.get('/index/:id', function (req, res, next) {
 
-  switch (req.query.id) {
+  switch (req.params.id) {
     case '1':
       fileurl = "./prizeList1.txt";
       break;
