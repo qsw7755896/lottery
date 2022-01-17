@@ -65,7 +65,7 @@ app.post("/append", function (req, res, next) {
  */
 app.get('/index/:id', function (req, res, next) {
 
-  switch (req.params.id) {
+  switch (req.query.id) {
     case '1':
       fileurl = "./prizeList1.txt";
       break;
