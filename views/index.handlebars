@@ -52,9 +52,9 @@
 </head>
 
 <body>
-	<div class="part1 container">
+	<div id="area" class="part1 container">
 		<div class="lottery row">
-			<input class="button" type="button" value="點我抽獎" onclick="getLottery()">
+			<input  class="button" type="button" value="點我抽獎" onclick="getLottery()">
 		</div>
 	</div>
 
@@ -79,7 +79,25 @@
 		var luckyNum = getRandomInt(lotterylist.length);
 		//console.log(lotterylist[luckyNum]);
 		document.getElementById("result").hidden = false;
+		document.getElementById("area").hidden = true;
 		document.getElementById("show_result").append("抽中: " + lotterylist[luckyNum].prize);
+
+		//將抽到的獎項，扣掉數量
+		updateList(luckyNum);
+
+		//回寫file
+		var url = 'https://testlottery123.herokuapp.com/write';
+		var data = prizeList;
+
+		fetch(url, {
+			method: 'POST', // or 'PUT'
+			body: JSON.stringify(data), // data can be `string` or {object}!
+			headers: new Headers({
+				'Content-Type': 'application/json'
+			})
+		}).then(res => res.json())
+			.catch(error => console.error('Error:', error))
+			.then(response => console.log('Success:', response));
 	}
 
 	function resetPrizeList(InsPrize) {
@@ -108,6 +126,22 @@
 		return Math.floor(Math.random() * max);
 	}
 
+	function updateList(luckyNum) {
+		var cnt = 0;
+		for(var i = 0; i < prizeList.length; i++) {
+			if (prizeList[i].prize == lotterylist[luckyNum].prize) {
+				prizeList[i].count--;
+				lotterylist.splice(luckyNum, 1);
+				if (prizeList[i].count == 0) 
+					prizeList.splice(i, 1);
+			} else {
+				prizeList[i].id = cnt;
+				cnt++;
+			}
+		}
+		console.log("prizeList", prizeList);
+		console.log("lotterylist", lotterylist);
+	}
 
 	window.onload = function () {
 		var request = new Request('https://testlottery123.herokuapp.com/');

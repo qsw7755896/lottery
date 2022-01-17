@@ -8,7 +8,7 @@ const fs = require('fs');
 const port = process.env.PORT || 3000;
 //const request = require("request");
 
-const list = [{ id: 1, name: "小明" }];
+const fileurl = "";
 
 /**
  * 設定 template engine
@@ -39,7 +39,7 @@ app.post("/write", function (req, res, next) {
 
   }
 
-  fs.writeFile('./prizeList.txt', data, function (err) {
+  fs.writeFile(fileurl, data, function (err) {
     if (err)
       console.log(err);
     else
@@ -50,7 +50,7 @@ app.post("/write", function (req, res, next) {
 
 app.post("/append", function (req, res, next) {
   var data = "," + req.body.insert;
-  fs.appendFile('./prizeList.txt', data, function (err) {
+  fs.appendFile(fileurl, data, function (err) {
     if (err)
       console.log(err);
     else
@@ -62,6 +62,23 @@ app.post("/append", function (req, res, next) {
  * 抽獎頁面
  */
 app.get('/index', function (req, res, next) {
+
+  switch (req.query.id) {
+    case '1':
+      fileurl = "./prizeList1.txt";
+      break;
+    case '2':
+      fileurl = "./prizeList2.txt";
+      break;
+    case '3':
+      fileurl = "./prizeList3.txt";
+      break;
+    case '4':
+      fileurl = "./prizeList4.txt";
+      break;
+    default:
+      fileurl = "./prizeList1.txt";
+  }
   res.render('index');
 
 });
@@ -81,7 +98,7 @@ server.listen(port, () => {
 })
 
 function getPrizeFile() {
-  var list = fs.readFileSync('./prizeList.txt', 'utf8');
+  var list = fs.readFileSync(fileurl, 'utf8');
   var arrlist = list.split(',');
 
   return arrlist;
