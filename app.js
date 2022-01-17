@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 const url = require('url');
 const querystring = require('querystring');
 
-const fileurl = "./prizeList1.txt";
+var fileurl = "./prizeList1.txt";
 
 /**
  * 設定 template engine
