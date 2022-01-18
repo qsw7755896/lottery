@@ -12,20 +12,21 @@ const querystring = require('querystring');
 var fileurl = "./prizeList1.txt";
 
 /**
- * 設定 template engine
+ * 1.設定 template engine
+ * 2.url route控制
  */
-//app.engine('handlebars', exphbs('defaultLayout: main'))
 app.engine('handlebars', require('exphbs'));
 app.set('view engine', 'handlebars')
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 /**
  * 首頁
  */
 app.get("/", function (req, res, next) {
   var obj = getPrizeFile();
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  //res.setHeader("Access-Control-Allow-Origin", "*");
   res.json({ 'arr': obj });
 });
 
