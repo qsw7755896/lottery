@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const url = require('url');
 const querystring = require('querystring');
 
+//存放各店的獎項清單 prizeList1、prizeList2等等
 var fileurl = "./prizeList1.txt";
 
 /**
@@ -26,41 +27,9 @@ app.use(bodyParser.json());
  */
 app.get("/", function (req, res, next) {
   var obj = getPrizeFile();
-  //res.setHeader("Access-Control-Allow-Origin", "*");
   res.json({ 'arr': obj });
 });
 
-app.post("/write", function (req, res, next) {
-  var data = "";
-
-  for (var i = 0; i < req.body.length; i++) {
-    if (data == "") {
-      data = req.body[i].prize + "|" + req.body[i].count;
-    } else {
-      data += "," + req.body[i].prize + "|" + req.body[i].count;
-    }
-
-  }
-
-  fs.writeFile(fileurl, data, function (err) {
-    if (err)
-      console.log(err);
-    else
-      console.log('Write operation complete.');
-  });
-  res.json(data)
-});
-
-app.post("/append", function (req, res, next) {
-  var data = "," + req.body.insert;
-  fs.appendFile(fileurl, data, function (err) {
-    if (err)
-      console.log(err);
-    else
-      console.log('Saved!');
-  });
-  res.render('setting');
-});
 /**
  * 抽獎頁面
  */
@@ -82,7 +51,7 @@ app.get('/index', function (req, res, next) {
     default:
       fileurl = "./prizeList1.txt";
   }
-  console.log("fileurl",fileurl);
+  console.log("fileurl", fileurl);
   res.render('index');
 
 });
@@ -106,7 +75,39 @@ app.get('/setting', function (req, res, next) {
     default:
       fileurl = "./prizeList1.txt";
   }
-  console.log("fileurl",fileurl);
+  console.log("fileurl", fileurl);
+  res.render('setting');
+});
+
+
+app.post("/write", function (req, res, next) {
+  var data = "";
+
+  for (var i = 0; i < req.body.length; i++) {
+    if (data == "") {
+      data = req.body[i].prize + "|" + req.body[i].count;
+    } else {
+      data += "," + req.body[i].prize + "|" + req.body[i].count;
+    }
+  }
+
+  fs.writeFile(fileurl, data, function (err) {
+    if (err)
+      console.log(err);
+    else
+      console.log('Write operation complete.');
+  });
+  res.json(data)
+});
+
+app.post("/append", function (req, res, next) {
+  var data = "," + req.body.insert;
+  fs.appendFile(fileurl, data, function (err) {
+    if (err)
+      console.log(err);
+    else
+      console.log('Saved!');
+  });
   res.render('setting');
 });
 /**

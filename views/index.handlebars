@@ -70,9 +70,13 @@
 
 <!-- script -->
 <script type="text/javascript">
-	var prizeList = [{ "id": 1, "prize": "銘謝惠顧", "count": 2 }, { "id": 2, "prize": "薯條100元", "count": 2 }, { "id": 3, "prize": "紅包500元", "count": 2 }]
+	var prizeList = [];
 	var lotterylist = [];
 
+	/**
+	 * 抽獎
+	 * parm :
+	 */
 	function getLottery() {
 		document.getElementById("show_result").innerText = "";
 		if (lotterylist.length !== 0) {
@@ -106,16 +110,22 @@
 
 	}
 
+	/**
+	 * 抓取目前清單並設置table
+	 * parm :
+	 *	InsPrize 獎項清單
+	 */
 	function resetPrizeList(InsPrize) {
-		prizeList = []; //清空抽獎列
+		prizeList = [];   //清空抽獎列
 		lotterylist = []; //清空抽獎列
-		var count = 0;
+		var count = 0;    
 		for (var idx = 0; idx < InsPrize.length; idx++) {
 			prizeList.push({
 				"id": idx,
 				"prize": InsPrize[idx].substring(0, InsPrize[idx].indexOf("|")),
 				"count": InsPrize[idx].substring(InsPrize[idx].indexOf("|") + 1, InsPrize[idx].length)
 			});
+			// lotterylist 將數量攤開
 			for (var j = 0; j < InsPrize[idx].substring(InsPrize[idx].indexOf("|") + 1, InsPrize[idx].length); j++) {
 				lotterylist.push({
 					"id": count,
@@ -124,14 +134,22 @@
 				count++;
 			}
 		}
-		console.log("resetPrizeList prizelist: ", prizeList)
-		console.log("resetPrizeList lotterylist:", lotterylist)
 	}
 
+	/**
+	 * 隨機抽數字
+	 * parm :
+	 *	max 範圍
+	 */
 	function getRandomInt(max) {
 		return Math.floor(Math.random() * max);
 	}
 
+	/**
+	 * 更新獎項清單
+	 * parm :
+	 *	luckyNum 抽中的數字
+	 */
 	function updateList(luckyNum) {
 		var cnt = 0;
 		for (var i = 0; i < prizeList.length; i++) {
@@ -145,8 +163,6 @@
 				cnt++;
 			}
 		}
-		console.log("prizeList", prizeList);
-		console.log("lotterylist", lotterylist);
 	}
 
 	window.onload = function () {
@@ -156,7 +172,6 @@
 			headers: {
 				'Content-Type': 'application/json'
 			}
-			//mode: 'no-cors'
 		})
 			.then(response => {
 				response.json().then(json => {
