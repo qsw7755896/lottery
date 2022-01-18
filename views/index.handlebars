@@ -75,7 +75,7 @@
 
 	function getLottery() {
 		document.getElementById("show_result").innerText = "";
-		if (lotterylist.length == 0) {
+		if (lotterylist.length <> 0) {
 			var luckyNum = getRandomInt(lotterylist.length);
 			//console.log(lotterylist[luckyNum]);
 			document.getElementById("result").hidden = false;
