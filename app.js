@@ -29,7 +29,10 @@ app.get("/", function (req, res, next) {
   var obj = getPrizeFile();
   res.json({ 'arr': obj });
 });
-
+app.get("/test", function (req, res, next) {
+  fileurl = "./test.txt";
+  res.render('test');
+});
 /**
  * 抽獎頁面
  */
