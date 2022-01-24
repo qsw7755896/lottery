@@ -687,9 +687,10 @@
 				.catch(error => console.error('Error:', error))
 				.then(response => console.log('Success:', response));
 		} else {
-			document.getElementById("result").hidden = false;
+			/*document.getElementById("result").hidden = false;
 			document.getElementById("area").hidden = true;
-			document.getElementById("show_result").append("抽中: 銘謝惠顧");
+			document.getElementById("show_result").append("抽中: 銘謝惠顧");*/
+			$(".resultarea").text("銘謝惠顧 ~~ ");
 		}
 
 	}
