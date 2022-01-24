@@ -3,69 +3,653 @@
 
 <head>
 	<meta charset="utf-8">
+	<title>Louti樓梯 - 抽獎</title>
+	<link href='https://fonts.googleapis.com/css?family=Nunito:400' rel='stylesheet' type='text/css'>
+
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<style>
-		.button {
-			border: none;
-			color: white;
-			padding: 15px 32px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			font-size: 80px;
-			margin: 4px 2px;
+		/* Basic Styling */
+		header {
+			background: #e3da74;
+		}
+
+		@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap');
+
+		ul {
+			position: relative;
+			display: flex;
+		}
+
+		li {
+			list-style: none;
+		}
+
+		label {
+			position: relative;
+		}
+
+		input[type="checkbox"] {
+			position: absolute;
+			opacity: 0;
 			cursor: pointer;
-			background-color: #008CBA;
-			border: 2px #ccc solid;
-			border-radius: 30px;
+			height: 80px;
+			width: 80px;
+			z-index: 100;
 		}
 
-		.result {
+		div.word {
+			position: relative;
+			height: 100px;
+			width: 100px;
+			background: #18191f;
+			color: #555;
+			display: flex;
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			color: #008CBA;
-			font-size: 50px;
+			font-size: 60px;
+			cursor: pointer;
+			margin: 0 4px;
+			border-radius: 20px;
+			box-shadow: -1px -1px 4px rgba(255, 255, 255, 0.05),
+				4px 4px 6px rgba(0, 0, 0, 0.2),
+				inset -1px -1px 4px rgba(255, 255, 255, 0.05),
+				inset 1px 1px 1px rgba(0, 0, 0, 0.1);
 		}
 
-		.result #show_result {
-			color: #008CBA;
-			font-size: 50px;
+		input[type="checkbox"]:checked~div {
+			box-shadow: inset 0 0 2px rgba(255, 255, 255, 0.05),
+				inset 4px 4px 6px rgba(0, 0, 0, 0.2);
+			color: yellow;
+			text-shadow: 0 0 15px yellow, 0 0 25px yellow;
+			animation: glow 1.5s linear infinite;
 		}
 
-		.part1 {
-			display: flex;
-			justify-content: center;
-			align-items: center;
+		@keyframes glow {
+			0% {
+				filter: hue-rotate(0deg);
+			}
+
+			100% {
+				filter: hue-rotate(360deg);
+			}
 		}
 
-		.lottery {
-			width: 85%;
+
+		.shop-sign {
+
+			padding: 0;
+			margin: 0;
 			height: 500px;
+			font-family: 'Poppins', sans-serif;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background: #18191f;
+		}
+
+		.demo {
+			position: relative;
+			font-family: 'Nunito', sans-serif;
+			color: white;
+			width: 100%;
+			height: 650px;
+			background: #f69159;
+			display: flex;
+			min-height: 30vh;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.contain-all {
+			margin: auto;
+			width: 150px;
+		}
+
+		a {
+			position: relative;
+			display: block;
+			margin: auto;
+			padding-top: 50px;
+			text-decoration: none;
+			color: white;
+			width: 150px;
+			height: 150px;
+		}
+
+		a:visited {
+			text-decoration: none;
+			color: inherit;
+		}
+
+		a:hover {
+			transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+		}
+
+		a:active {
+			text-decoration: none;
+			color: inherit;
+		}
+
+		.icon-hook {
+			position: relative;
+		}
+
+		.icon-hook:after {
+			content: "";
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+
+		.icon-hook>svg {
+			pointer-events: none;
+		}
+
+		.contain-card {
+			padding-top: 75px;
+			height: 350px;
+		}
+
+
+		svg {
+			position: absolute;
+			z-index: 5;
+		}
+
+		.text {
+			position: absolute;
+			font-size: 20px;
+			font-weight: bold;
+		}
+
+		.gift-text {
+			top: 150px;
+			left: 2px;
+		}
+
+		footer {
+			position: relative;
+			background: #18191f;
+			height: 500px;
+			font-family: 'Nunito', sans-serif;
+			color: white;
+			font-size: 18px;
+			margin-top: auto;
+		}
+
+		.by-heart {
+			position: absolute;
+			top: -2px;
+		}
+
+		.by {
+			margin-left: 55px;
+		}
+
+		.byline {
+			position: absolute;
+			top: 35px;
+			left: 120px;
+			padding: 0;
+			margin: 0;
+			height: 20px;
+		}
+
+		.byline:hover {
+			color: #fcab54;
+		}
+
+		.contain-footer-info {
+			position: absolute;
+			top: 180px;
+			left: 50%;
+			margin-left: -200px;
+			text-align: center;
+			width: 400px;
+			height: 50px;
+		}
+
+		/* Gift Demo 1 */
+		.box-icon {
+			left: 30px;
+		}
+
+		.bow-1 {
+			stroke-dasharray: 140;
+			stroke-dashoffset: -140;
+		}
+
+		.bow-1-right {
+			stroke-dashoffset: 140;
+		}
+
+		.active .bow-1 {
+			-webkit-animation: draw-bow-1 1s forwards;
+		}
+
+		.active .bow-1-right {
+			-webkit-animation: draw-bow-1 1s 1s forwards;
+		}
+
+		@-webkit-keyframes draw-bow-1 {
+			1% {
+				opacity: 1;
+			}
+
+			100% {
+				stroke-dashoffset: 0;
+			}
+		}
+
+		/* Footer Heart */
+		.by-heart-path {
+			stroke-dasharray: 7;
+			animation: move-heart 1s infinite;
+		}
+
+		@keyframes move-heart {
+			50% {
+				stroke-dashoffset: 40;
+			}
+		}
+
+		/* Media query for layout */
+		@media (min-width: 800px) {
+			.demo {
+				height: 50vh;
+			}
+
+			.contain-all {
+				margin-top: 100px;
+				width: 750px;
+			}
+
+			a {
+				display: inline-block;
+				margin-right: 145px;
+			}
+
+			footer .byline {
+				display: block;
+				margin-right: 0;
+			}
+
+			.contain-icon:last-of-type {
+				margin-right: 0;
+			}
+		}
+
+		body {
+			background: #f69159;
+			display: flex;
+			min-height: 100vh;
+			flex-direction: column;
+		}
+
+		:root {
+			--red: hsl(0, 78%, 62%);
+			--cyan: hsl(180, 62%, 55%);
+			--orange: hsl(34, 97%, 64%);
+			--blue: hsl(212, 86%, 64%);
+			--varyDarkBlue: hsl(234, 12%, 34%);
+			--grayishBlue: hsl(229, 6%, 66%);
+			--veryLightGray: hsl(0, 0%, 98%);
+			--weight1: 200;
+			--weight2: 400;
+			--weight3: 600;
+		}
+
+		h1:first-of-type {
+			font-weight: var(--weight1);
+			color: var(--varyDarkBlue);
+
+		}
+
+		h1:last-of-type {
+			color: var(--varyDarkBlue);
+		}
+
+		@media (max-width: 400px) {
+			h1 {
+				font-size: 1.5rem;
+			}
+		}
+
+		.box p {
+			color: var(--grayishBlue);
+			
+		}
+
+		.box {
+			border-radius: 5px;x
+			box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+			padding: 30px;
 			margin: 20px;
+			z-index: 1000;
+			position: absolute;
+			background-color: white;
+		}
+
+		img {
+			float: right;
+		}
+
+		@media (max-width: 450px) {
+			.box {
+				height: 200px;
+			}
+		}
+
+		@media (max-width: 950px) and (min-width: 450px) {
+			.box {
+				text-align: center;
+				height: 180px;
+			}
+		}
+
+		.red {
+			border-top: 3px solid var(--red);
+		}
+
+		h2 {
+			color: var(--varyDarkBlue);
+			font-weight: var(--weight3);
+		}
+
+		@media (min-width: 950px) {
+			.box {
+				width: 80%;
+			}
+		}
+
+		/* ----------------------------------------------
+ * Generated by Animista on 2022-1-24 20:36:36
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+		/**
+ * ----------------------------------------
+ * animation slide-fwd-br
+ * ----------------------------------------
+ 
+		@-webkit-keyframes slide-fwd-br {
+			0% {
+				-webkit-transform: translateZ(0) translateY(0) translateX(0);
+				transform: translateZ(0) translateY(0) translateX(0);
+			}
+
+			100% {
+				-webkit-transform: translateZ(160px) translateY(100px) translateX(100px);
+				transform: translateZ(160px) translateY(100px) translateX(100px);
+			}
+		}
+
+		@keyframes slide-fwd-br {
+			0% {
+				-webkit-transform: translateZ(0) translateY(0) translateX(0);
+				transform: translateZ(0) translateY(0) translateX(0);
+			}
+
+			100% {
+				-webkit-transform: translateZ(160px) translateY(40px) translateX(10px);
+				transform: translateZ(160px) translateY(40px) translateX(10px);
+			}
+		}*/
+/* ----------------------------------------------
+ * Generated by Animista on 2022-1-24 22:14:0
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation rotate-vert-center
+ * ----------------------------------------
+ */
+@-webkit-keyframes rotate-vert-center {
+  0% {
+    -webkit-transform: rotateY(0);
+            transform: rotateY(0);
+  }
+  100% {
+    -webkit-transform: rotateY(360deg);
+            transform: rotateY(360deg);
+  }
+}
+@keyframes rotate-vert-center {
+  0% {
+    -webkit-transform: rotateY(0);
+            transform: rotateY(0);
+  }
+  100% {
+    -webkit-transform: rotateY(360deg);
+            transform: rotateY(360deg);
+  }
+}
+
+
+		.slide-fwd-br {
+	-webkit-animation: rotate-vert-center 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+	        animation: rotate-vert-center 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+			overflow: auto;
 		}
 	</style>
 </head>
 
+
+
+
 <body>
-	<div id="area" class="part1 container">
+	<header>
+		<div class="shop-sign">
+			<ul>
+				<li>
+					<input type="checkbox" checked />
+					<div class="word">L</div>
+				</li>
+				<li>
+					<input type="checkbox" checked />
+					<div class="word">O</div>
+				</li>
+				<li>
+					<input type="checkbox" checked />
+					<div class="word">U</div>
+				</li>
+				<li>
+					<input type="checkbox" checked />
+					<div class="word">T</div>
+				</li>
+				<li>
+					<input type="checkbox" checked />
+					<div class="word">I</div>
+				</li>
+				<li>
+					<input type="checkbox" checked />
+					<div class="word">樓</div>
+				</li>
+				<li>
+					<input type="checkbox" checked />
+					<div class="word">梯</div>
+				</li>
+			</ul>
+		</div>
+		{{!-- <img class="shop-sign" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/80625/headerpic.svg"
+			alt="Fake Fruit Shop Sign" /> --}}
+	</header>
+
+	<div class="demo demo-3">
+		<div class="contain-all">
+			<a href="#" class="contain-icon icon-hook">
+				<!--Begin First Gift Icon-->
+				<svg class="box-icon box-icon-1" version="1.1" width="74px" height="89px" viewBox="0 0 74.479 89.141">
+					<path class="box-bottom-1" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-miterlimit="10"
+						d="M67.874,84.885
+          c0,1.173-0.959,2.132-2.132,2.132H8.737c-1.173,0-2.132-0.959-2.132-2.132V44.389c0-1.173,0.959-2.132,2.132-2.132h57.005 c1.173,0,2.132,0.959,2.132,2.132V84.885z" />
+					<path class="box-top-1" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-miterlimit="10" d="M72.354,41.018
+          c0,0.655-0.536,1.191-1.191,1.191H3.315c-0.655,0-1.191-0.536-1.191-1.191v-9.795c0-0.655,0.536-1.191,1.191-1.191h67.849
+          c0.655,0,1.191,0.536,1.191,1.191V41.018z" />
+					<path class="bow-1" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"
+						stroke-linejoin="round" stroke-miterlimit="10" d="
+          M36.491,87.017c0,0,0-56.14,0-56.976c0-9.195,1.934-26.713-11.045-27.872c-9.035-0.807-14.344,9.487-11.634,17.091
+          c3.113,8.734,14.479,10.773,22.678,10.773" />
+					<path class="bow-1 bow-1-right" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"
+						stroke-linejoin="round" stroke-miterlimit="10" d="
+          M37.988,87.017c0,0,0-56.14,0-56.976c0-9.195-1.934-26.713,11.045-27.872c9.035-0.807,14.344,9.487,11.634,17.091
+          c-3.113,8.734-14.479,10.773-22.678,10.773" />
+				</svg>
+				<!--End First Gift Icon-->
+				<span class="text gift-text">This is a Gift</span>
+			</a>
+			<div class="box red " hidden>
+				<h2>抽獎結果</h2>
+				<p class="resultarea" style="font-size:80px"></p>
+				<img src="https://assets.codepen.io/2301174/icon-karma.svg" alt="">
+			</div>
+			<a href="#" class="contain-icon icon-hook">
+				<!--Begin First Gift Icon-->
+				<svg class="box-icon box-icon-1" version="1.1" width="74px" height="89px" viewBox="0 0 74.479 89.141">
+					<path class="box-bottom-1" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-miterlimit="10"
+						d="M67.874,84.885
+          c0,1.173-0.959,2.132-2.132,2.132H8.737c-1.173,0-2.132-0.959-2.132-2.132V44.389c0-1.173,0.959-2.132,2.132-2.132h57.005 c1.173,0,2.132,0.959,2.132,2.132V84.885z" />
+					<path class="box-top-1" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-miterlimit="10" d="M72.354,41.018
+          c0,0.655-0.536,1.191-1.191,1.191H3.315c-0.655,0-1.191-0.536-1.191-1.191v-9.795c0-0.655,0.536-1.191,1.191-1.191h67.849
+          c0.655,0,1.191,0.536,1.191,1.191V41.018z" />
+					<path class="bow-1" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"
+						stroke-linejoin="round" stroke-miterlimit="10" d="
+          M36.491,87.017c0,0,0-56.14,0-56.976c0-9.195,1.934-26.713-11.045-27.872c-9.035-0.807-14.344,9.487-11.634,17.091
+          c3.113,8.734,14.479,10.773,22.678,10.773" />
+					<path class="bow-1 bow-1-right" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"
+						stroke-linejoin="round" stroke-miterlimit="10" d="
+          M37.988,87.017c0,0,0-56.14,0-56.976c0-9.195-1.934-26.713,11.045-27.872c9.035-0.807,14.344,9.487,11.634,17.091
+          c-3.113,8.734-14.479,10.773-22.678,10.773" />
+				</svg>
+				<!--End First Gift Icon-->
+				<span class="text gift-text">This is a Gift</span>
+			</a>
+			<a href="#" class="contain-icon icon-hook">
+				<!--Begin First Gift Icon-->
+				<svg class="box-icon box-icon-1" version="1.1" width="74px" height="89px" viewBox="0 0 74.479 89.141">
+					<path class="box-bottom-1" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-miterlimit="10"
+						d="M67.874,84.885
+          c0,1.173-0.959,2.132-2.132,2.132H8.737c-1.173,0-2.132-0.959-2.132-2.132V44.389c0-1.173,0.959-2.132,2.132-2.132h57.005 c1.173,0,2.132,0.959,2.132,2.132V84.885z" />
+					<path class="box-top-1" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-miterlimit="10" d="M72.354,41.018
+          c0,0.655-0.536,1.191-1.191,1.191H3.315c-0.655,0-1.191-0.536-1.191-1.191v-9.795c0-0.655,0.536-1.191,1.191-1.191h67.849
+          c0.655,0,1.191,0.536,1.191,1.191V41.018z" />
+					<path class="bow-1" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"
+						stroke-linejoin="round" stroke-miterlimit="10" d="
+          M36.491,87.017c0,0,0-56.14,0-56.976c0-9.195,1.934-26.713-11.045-27.872c-9.035-0.807-14.344,9.487-11.634,17.091
+          c3.113,8.734,14.479,10.773,22.678,10.773" />
+					<path class="bow-1 bow-1-right" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"
+						stroke-linejoin="round" stroke-miterlimit="10" d="
+          M37.988,87.017c0,0,0-56.14,0-56.976c0-9.195-1.934-26.713,11.045-27.872c9.035-0.807,14.344,9.487,11.634,17.091
+          c-3.113,8.734-14.479,10.773-22.678,10.773" />
+				</svg>
+				<!--End First Gift Icon-->
+				<span class="text gift-text">This is a Gift</span>
+			</a>
+		</div>
+		<div class="contain-all">
+			<a href="#" class="contain-icon icon-hook">
+				<!--Begin First Gift Icon-->
+				<svg class="box-icon box-icon-1" version="1.1" width="74px" height="89px" viewBox="0 0 74.479 89.141">
+					<path class="box-bottom-1" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-miterlimit="10"
+						d="M67.874,84.885
+          c0,1.173-0.959,2.132-2.132,2.132H8.737c-1.173,0-2.132-0.959-2.132-2.132V44.389c0-1.173,0.959-2.132,2.132-2.132h57.005 c1.173,0,2.132,0.959,2.132,2.132V84.885z" />
+					<path class="box-top-1" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-miterlimit="10" d="M72.354,41.018
+          c0,0.655-0.536,1.191-1.191,1.191H3.315c-0.655,0-1.191-0.536-1.191-1.191v-9.795c0-0.655,0.536-1.191,1.191-1.191h67.849
+          c0.655,0,1.191,0.536,1.191,1.191V41.018z" />
+					<path class="bow-1" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"
+						stroke-linejoin="round" stroke-miterlimit="10" d="
+          M36.491,87.017c0,0,0-56.14,0-56.976c0-9.195,1.934-26.713-11.045-27.872c-9.035-0.807-14.344,9.487-11.634,17.091
+          c3.113,8.734,14.479,10.773,22.678,10.773" />
+					<path class="bow-1 bow-1-right" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"
+						stroke-linejoin="round" stroke-miterlimit="10" d="
+          M37.988,87.017c0,0,0-56.14,0-56.976c0-9.195-1.934-26.713,11.045-27.872c9.035-0.807,14.344,9.487,11.634,17.091
+          c-3.113,8.734-14.479,10.773-22.678,10.773" />
+				</svg>
+				<!--End First Gift Icon-->
+				<span class="text gift-text">This is a Gift</span>
+			</a>
+			<a href="#" class="contain-icon icon-hook">
+				<!--Begin First Gift Icon-->
+				<svg class="box-icon box-icon-1" version="1.1" width="74px" height="89px" viewBox="0 0 74.479 89.141">
+					<path class="box-bottom-1" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-miterlimit="10"
+						d="M67.874,84.885
+          c0,1.173-0.959,2.132-2.132,2.132H8.737c-1.173,0-2.132-0.959-2.132-2.132V44.389c0-1.173,0.959-2.132,2.132-2.132h57.005 c1.173,0,2.132,0.959,2.132,2.132V84.885z" />
+					<path class="box-top-1" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-miterlimit="10" d="M72.354,41.018
+          c0,0.655-0.536,1.191-1.191,1.191H3.315c-0.655,0-1.191-0.536-1.191-1.191v-9.795c0-0.655,0.536-1.191,1.191-1.191h67.849
+          c0.655,0,1.191,0.536,1.191,1.191V41.018z" />
+					<path class="bow-1" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"
+						stroke-linejoin="round" stroke-miterlimit="10" d="
+          M36.491,87.017c0,0,0-56.14,0-56.976c0-9.195,1.934-26.713-11.045-27.872c-9.035-0.807-14.344,9.487-11.634,17.091
+          c3.113,8.734,14.479,10.773,22.678,10.773" />
+					<path class="bow-1 bow-1-right" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"
+						stroke-linejoin="round" stroke-miterlimit="10" d="
+          M37.988,87.017c0,0,0-56.14,0-56.976c0-9.195-1.934-26.713,11.045-27.872c9.035-0.807,14.344,9.487,11.634,17.091
+          c-3.113,8.734-14.479,10.773-22.678,10.773" />
+				</svg>
+				<!--End First Gift Icon-->
+				<span class="text gift-text">This is a Gift</span>
+			</a>
+			<a href="#" class="contain-icon icon-hook">
+				<!--Begin First Gift Icon-->
+				<svg class="box-icon box-icon-1" version="1.1" width="74px" height="89px" viewBox="0 0 74.479 89.141">
+					<path class="box-bottom-1" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-miterlimit="10"
+						d="M67.874,84.885
+          c0,1.173-0.959,2.132-2.132,2.132H8.737c-1.173,0-2.132-0.959-2.132-2.132V44.389c0-1.173,0.959-2.132,2.132-2.132h57.005 c1.173,0,2.132,0.959,2.132,2.132V84.885z" />
+					<path class="box-top-1" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-miterlimit="10" d="M72.354,41.018
+          c0,0.655-0.536,1.191-1.191,1.191H3.315c-0.655,0-1.191-0.536-1.191-1.191v-9.795c0-0.655,0.536-1.191,1.191-1.191h67.849
+          c0.655,0,1.191,0.536,1.191,1.191V41.018z" />
+					<path class="bow-1" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"
+						stroke-linejoin="round" stroke-miterlimit="10" d="
+          M36.491,87.017c0,0,0-56.14,0-56.976c0-9.195,1.934-26.713-11.045-27.872c-9.035-0.807-14.344,9.487-11.634,17.091
+          c3.113,8.734,14.479,10.773,22.678,10.773" />
+					<path class="bow-1 bow-1-right" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"
+						stroke-linejoin="round" stroke-miterlimit="10" d="
+          M37.988,87.017c0,0,0-56.14,0-56.976c0-9.195-1.934-26.713,11.045-27.872c9.035-0.807,14.344,9.487,11.634,17.091
+          c-3.113,8.734-14.479,10.773-22.678,10.773" />
+				</svg>
+				<!--End First Gift Icon-->
+				<span class="text gift-text">This is a Gift</span>
+			</a>
+		</div>
+	</div>
+	<footer>
+		<div class="contain-footer-info">
+			<span class="made-with">Made with</span>
+			<svg class="by-heart" version="1.1" width="50px" height="34px" viewBox="0 0 90.65 85.04">
+				<path class="by-heart-path" fill="none" stroke="#ea6b46" stroke-width="5" stroke-linecap="round"
+					stroke-linejoin="round" stroke-miterlimit="10" d="
+        M45.137,23.041c4.912-24.596,40.457-27.775,42.128-0.435c1.398,22.88-21.333,40.717-42.128,50.522 M45.137,23.041
+        C40.225-1.555,5.057-4.734,3.387,22.606c-1.398,22.88,20.955,40.717,41.75,50.522" />
+			</svg>
+			<span class="by">by<a href="http://jonibologna.com/" class="byline">Joni Trythall</a></span>
+		</div>
+	</footer>
+
+	{{!-- <div id="area" class="part1 container" style="height: 1000px;">
 		<div class="lottery row">
 			<input class="button" type="button" value="點我抽獎" onclick="getLottery()">
+
 		</div>
 	</div>
 
 	<div id="result" class="result container" hidden="true">
 		<div class="row">
-			<div id="show_result"></div>
+			<div id="show_result">
+			</div>
 		</div>
-
-	</div>
-
-
+	</div> --}}
 </body>
 
 <!-- script -->
@@ -78,13 +662,14 @@
 	 * parm :
 	 */
 	function getLottery() {
-		document.getElementById("show_result").innerText = "";
+		//document.getElementById("show_result").innerText = "";
 		if (lotterylist.length !== 0) {
 			var luckyNum = getRandomInt(lotterylist.length);
-			//console.log(lotterylist[luckyNum]);
-			document.getElementById("result").hidden = false;
-			document.getElementById("area").hidden = true;
-			document.getElementById("show_result").append("抽中: " + lotterylist[luckyNum].prize);
+			$(".resultarea").text(lotterylist[luckyNum].prize);
+			//document.getElementById("result").hidden = false;
+			//document.getElementById("area").hidden = true;
+			//document.getElementById("show_result").append("抽中: " + lotterylist[luckyNum].prize);
+
 
 			//將抽到的獎項，扣掉數量
 			updateList(luckyNum);
@@ -103,9 +688,10 @@
 				.catch(error => console.error('Error:', error))
 				.then(response => console.log('Success:', response));
 		} else {
-			document.getElementById("result").hidden = false;
+			/*document.getElementById("result").hidden = false;
 			document.getElementById("area").hidden = true;
-			document.getElementById("show_result").append("抽中: 銘謝惠顧");
+			document.getElementById("show_result").append("抽中: 銘謝惠顧");*/
+			$(".resultarea").text("銘謝惠顧 ~~ ");
 		}
 
 	}
@@ -118,13 +704,15 @@
 	function resetPrizeList(InsPrize) {
 		prizeList = [];   //清空抽獎列
 		lotterylist = []; //清空抽獎列
-		var count = 0;    
+		var count = 0;
 		for (var idx = 0; idx < InsPrize.length; idx++) {
 			prizeList.push({
 				"id": idx,
 				"prize": InsPrize[idx].substring(0, InsPrize[idx].indexOf("|")),
 				"count": InsPrize[idx].substring(InsPrize[idx].indexOf("|") + 1, InsPrize[idx].length)
 			});
+
+
 			// lotterylist 將數量攤開
 			for (var j = 0; j < InsPrize[idx].substring(InsPrize[idx].indexOf("|") + 1, InsPrize[idx].length); j++) {
 				lotterylist.push({
@@ -166,25 +754,62 @@
 	}
 
 	window.onload = function () {
-		var request = new Request('https://testlottery123.herokuapp.com/');
-		var repspnse = fetch(request, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-			.then(response => {
-				response.json().then(json => {
-					//console.log(text);  // 成功拿到 response.body 的 json 資料
-					resetPrizeList(json.arr)
-				})
+		//resetPrizeList(["薯條來一份|3", "下次老闆請客|1", "謝謝光臨|2"]);
+		// Get a list of all svg elements
+		icons = document.querySelectorAll('.icon-hook');
+
+		// Cycle through list
+		for (var i = 0; i < icons.length; i++) {
+			icons[i].addEventListener('click', function (event) {
+				event.preventDefault();
+
+				var icon = this;
+				var currentClass = icon.getAttribute('class'); // The starting class
+
+				console.log(icon);
+
+				if (currentClass.indexOf('active') > -1) {
+					// Remove .active
+					icon.setAttribute('class', currentClass.replace(' active', ''));
+				} else {
+					// Add .active
+					icon.setAttribute('class', currentClass + ' active');
+				}
+			}, false);
+		}
+		$modal = $('.box');
+
+
+		$('.contain-all a').on('click', function () {
+			getLottery();
+			$modal.removeAttr('hidden');
+			$modal.addClass('slide-fwd-br');
+			$(".demo").css(
+				{
+					"background-color": "rgb(0, 0, 0)",
+					"background-color": "rgba(0, 0, 0, 0.4)"
+				});
+
+		});
+			var request = new Request('https://testlottery123.herokuapp.com/');
+			var repspnse = fetch(request, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json'
+				}
 			})
-			.catch(function (error) {
-				console.log('Request failed', error)
-			});
-
-
+				.then(response => {
+					response.json().then(json => {
+						//console.log(text);  // 成功拿到 response.body 的 json 資料
+						resetPrizeList(json.arr)
+					//	createanimation();
+					})
+				})
+				.catch(function (error) {
+					console.log('Request failed', error)
+				});
 	}
 </script>
+
 
 </html>
